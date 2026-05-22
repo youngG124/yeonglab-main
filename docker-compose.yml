@@ -1,0 +1,11 @@
+services:
+  yeonglab-main:
+    image: newyoung124/yeonglab-main:latest
+    container_name: yeonglab-main
+    restart: unless-stopped
+    networks:
+      - infra-net
+
+networks:
+  infra-net:
+    external: true
