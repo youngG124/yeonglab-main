@@ -16,342 +16,311 @@
       --line:   4px solid var(--black);
     }
 
-    html { scroll-behavior: smooth; }
-
     body {
       background: var(--white);
       color: var(--black);
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ──────────────────────────────
-       OUTER FRAME
-    ────────────────────────────── */
-    .frame {
       min-height: 100vh;
       display: grid;
       grid-template-rows: auto 1fr auto;
       border: var(--line);
     }
 
-    /* ──────────────────────────────
-       HEADER
-    ────────────────────────────── */
-    .header-grid {
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    header {
       display: grid;
-      grid-template-columns: 1fr 80px 80px;
+      grid-template-columns: 1fr 64px 64px;
       border-bottom: var(--line);
+      height: 52px;
     }
 
-    .header-logo {
-      padding: 18px 24px;
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       border-right: var(--line);
-      display: flex;
-      align-items: center;
     }
 
-    .header-block-yellow {
-      background: var(--yellow);
-      border-right: var(--line);
-    }
+    .hb-yellow { background: var(--yellow); border-right: var(--line); }
+    .hb-red    { background: var(--red); }
 
-    .header-block-red {
-      background: var(--red);
-    }
-
-    /* ──────────────────────────────
-       MAIN BODY — Mondrian grid
-    ────────────────────────────── */
+    /* ── BODY ── */
     .body-grid {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      grid-template-rows: auto auto 1fr;
+      grid-template-columns: 240px 1fr;
     }
 
-    /* Left column: identity */
-    .cell-name {
-      grid-column: 1;
-      grid-row: 1;
+    /* ── LEFT PANEL ── */
+    .panel-left {
+      border-right: var(--line);
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+
+    /* Identity cell */
+    .cell-identity {
       background: var(--blue);
       color: var(--white);
-      padding: 40px 32px;
-      border-right: var(--line);
-      border-bottom: var(--line);
-    }
-
-    .cell-name h1 {
-      font-size: 36px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-
-    .cell-name .tagline {
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.6;
-      opacity: 0.85;
-    }
-
-    .cell-contact {
-      grid-column: 1;
-      grid-row: 2;
-      padding: 24px 32px;
-      border-right: var(--line);
+      padding: 40px 28px;
       border-bottom: var(--line);
       display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .cell-identity h1 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    /* Contact — hidden by default */
+    .cell-identity .reveal {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+    .cell-identity .reveal-inner {
+      overflow: hidden;
+    }
+    .cell-identity:hover .reveal {
+      grid-template-rows: 1fr;
+    }
+
+    .contact-link {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
+      gap: 7px;
+      font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.01em;
-      transition: background 0.15s;
-      cursor: pointer;
+      letter-spacing: 0.02em;
+      color: rgba(245,243,238,0.75);
+      padding-top: 20px;
+      transition: color 0.2s;
     }
+    .contact-link:hover { color: var(--white); }
 
-    .cell-contact:hover {
-      background: var(--yellow);
-    }
-
-    .cell-contact svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .contact-link svg {
+      width: 13px; height: 13px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
       flex-shrink: 0;
     }
 
-    /* Left bottom: color accent block */
-    .cell-accent-red {
-      grid-column: 1;
-      grid-row: 3;
-      background: var(--red);
-      border-right: var(--line);
-      min-height: 80px;
+    /* Tagline — hidden by default */
+    .cell-tagline-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
+    }
+    .cell-tagline-inner { overflow: hidden; }
+    .cell-identity:hover .cell-tagline-wrap {
+      grid-template-rows: 1fr;
     }
 
-    /* Right column: projects label + section */
-    .cell-projects-label {
-      grid-column: 2;
-      grid-row: 1;
-      padding: 20px 32px;
-      border-bottom: var(--line);
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .cell-tagline {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: rgba(245,243,238,0.7);
+      padding-top: 14px;
     }
 
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
+    /* Bottom accent */
+    .cell-accent { background: var(--red); }
 
-    .label-line {
-      flex: 1;
-      height: 2px;
-      background: var(--black);
-    }
+    /* ── RIGHT PANEL: Cards ── */
+    .panel-right { display: flex; flex-direction: column; }
 
-    .cell-projects {
-      grid-column: 2;
-      grid-row: 2 / 4;
-      padding: 0;
-    }
-
-    /* ──────────────────────────────
-       PROJECT CARDS — stacked cells
-    ────────────────────────────── */
     .card {
       display: block;
-      padding: 28px 32px;
+      padding: 28px 32px 28px 28px;
       border-bottom: var(--line);
+      flex: 1;
       position: relative;
-      transition: background 0.15s;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .card:last-child {
-      border-bottom: none;
+    .card:last-child { border-bottom: none; }
+    .card:hover { background: #edeae2; }
+
+    /* Color strip */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      transition: width 0.2s;
     }
+    .card:nth-child(1)::before { background: var(--red); }
+    .card:nth-child(2)::before { background: var(--blue); }
+    .card:nth-child(3)::before { background: var(--yellow); }
+    .card:hover::before { width: 8px; }
 
-    .card:hover { background: #eeebe3; }
-
+    /* Card top — always visible */
     .card-top {
       display: flex;
-      align-items: flex-start;
+      align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 10px;
     }
 
     .card-name {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 900;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .card-arrow {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
       transition: transform 0.2s;
-      line-height: 1;
-      margin-left: 8px;
     }
+    .card:hover .card-arrow { transform: translate(4px, -4px); }
 
-    .card:hover .card-arrow {
-      transform: translate(4px, -4px);
+    /* Reveal block — hidden by default */
+    .card-reveal {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s ease;
     }
+    .card-reveal-inner { overflow: hidden; }
+    .card:hover .card-reveal { grid-template-rows: 1fr; }
 
     .card-desc {
-      font-size: 13px;
-      color: #444;
+      font-size: 12.5px;
+      color: #555;
       line-height: 1.65;
-      margin-bottom: 16px;
+      padding-top: 14px;
+      padding-bottom: 14px;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
     }
 
     .tag {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--white);
+      padding: 3px 8px;
       background: var(--black);
-      padding: 3px 9px;
+      color: var(--white);
     }
 
-    /* color accents on first tag per card */
     .card:nth-child(1) .tag:first-child { background: var(--red); }
     .card:nth-child(2) .tag:first-child { background: var(--blue); }
-    .card:nth-child(3) .tag:first-child { background: var(--yellow); color: var(--black); }
+    .card:nth-child(3) .tag:first-child { background: #c8a200; color: var(--black); }
 
-    /* Color strip on left edge of each card */
-    .card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 6px;
-    }
-    .card:nth-child(1)::before { background: var(--red); }
-    .card:nth-child(2)::before { background: var(--blue); }
-    .card:nth-child(3)::before { background: var(--yellow); }
-
-    /* ──────────────────────────────
-       FOOTER
-    ────────────────────────────── */
-    .footer-grid {
+    /* ── FOOTER ── */
+    footer {
       display: grid;
-      grid-template-columns: 280px 1fr 80px;
+      grid-template-columns: 240px 1fr 64px;
       border-top: var(--line);
+      height: 48px;
     }
 
-    .footer-copy {
-      padding: 16px 24px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+    .foot-copy {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       border-right: var(--line);
-      display: flex;
-      align-items: center;
     }
 
-    .footer-domain {
-      padding: 16px 24px;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+    .foot-domain {
       display: flex;
       align-items: center;
+      padding: 0 24px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
       border-right: var(--line);
     }
 
-    .footer-block-blue {
-      background: var(--blue);
-    }
+    .fb-blue { background: var(--blue); }
 
-    /* ──────────────────────────────
-       RESPONSIVE
-    ────────────────────────────── */
-    @media (max-width: 640px) {
-      .body-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-      }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .body-grid { grid-template-columns: 1fr; }
+      .panel-left { border-right: none; grid-template-rows: auto 60px; }
+      .cell-identity { min-height: 180px; justify-content: flex-end; }
+      .panel-right .card:last-child { border-bottom: var(--line); }
 
-      .cell-name       { grid-column: 1; grid-row: 1; border-right: none; }
-      .cell-contact    { grid-column: 1; grid-row: 2; border-right: none; }
-      .cell-accent-red { display: none; }
-      .cell-projects-label { grid-column: 1; grid-row: 3; }
-      .cell-projects   { grid-column: 1; grid-row: 4; }
-
-      .header-grid { grid-template-columns: 1fr 48px 48px; }
-      .footer-grid { grid-template-columns: 1fr 48px; }
-      .footer-domain { display: none; }
+      footer { grid-template-columns: 1fr 52px; }
+      .foot-domain { display: none; }
     }
   </style>
 </head>
 <body>
 
-<div class="frame">
-
   <!-- HEADER -->
-  <header class="header-grid">
-    <div class="header-logo">yeonglab</div>
-    <div class="header-block-yellow"></div>
-    <div class="header-block-red"></div>
+  <header>
+    <div class="logo">yeonglab</div>
+    <div class="hb-yellow"></div>
+    <div class="hb-red"></div>
   </header>
 
   <!-- BODY -->
-  <main class="body-grid">
+  <div class="body-grid">
 
-    <!-- Left: Identity -->
-    <div class="cell-name">
-      <h1>김신영</h1>
-      <p class="tagline">작은 불편함을 해결하는<br>웹 도구를 만들었습니다.</p>
+    <!-- LEFT -->
+    <div class="panel-left">
+      <div class="cell-identity">
+        <h1>김신영</h1>
+
+        <div class="cell-tagline-wrap">
+          <div class="cell-tagline-inner">
+            <p class="cell-tagline">작은 불편함을 해결하는<br>웹 도구를 만들었습니다.</p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="reveal-inner">
+            <a class="contact-link" href="mailto:newyoung124@naver.com">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><polyline points="2,4 12,13 22,4"/></svg>
+              newyoung124@naver.com
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cell-accent"></div>
     </div>
 
-    <!-- Right: Projects label -->
-    <div class="cell-projects-label">
-      <span class="section-label">Projects</span>
-      <div class="label-line"></div>
-    </div>
-
-    <!-- Left: Contact -->
-    <a class="cell-contact" href="mailto:newyoung124@naver.com">
-      <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="0"/><polyline points="2,4 12,13 22,4"/></svg>
-      newyoung124@naver.com
-    </a>
-
-    <!-- Right: Cards -->
-    <div class="cell-projects">
+    <!-- RIGHT -->
+    <div class="panel-right">
 
       <a class="card" href="/phtop/">
         <div class="card-top">
           <span class="card-name">phtop</span>
           <span class="card-arrow">↗</span>
         </div>
-        <p class="card-desc">iOS에서 Windows로 사진을 빠르게 전송하는 웹앱. 업로드 후 1분 TTL, 다운로드 즉시 삭제.</p>
-        <div class="tags">
-          <span class="tag">파일 전송</span>
-          <span class="tag">iOS</span>
-          <span class="tag">Node.js</span>
+        <div class="card-reveal">
+          <div class="card-reveal-inner">
+            <p class="card-desc">iOS에서 Windows로 사진을 빠르게 전송하는 웹앱. 업로드 후 1분 TTL, 다운로드 즉시 삭제.</p>
+            <div class="tags">
+              <span class="tag">파일 전송</span>
+              <span class="tag">iOS</span>
+              <span class="tag">Node.js</span>
+            </div>
+          </div>
         </div>
       </a>
 
@@ -360,11 +329,15 @@
           <span class="card-name">monmile</span>
           <span class="card-arrow">↗</span>
         </div>
-        <p class="card-desc">월간 러닝 기록 앱. 날짜별 km를 입력하고 목표 달성률과 월 경과율을 한눈에 확인.</p>
-        <div class="tags">
-          <span class="tag">러닝</span>
-          <span class="tag">React</span>
-          <span class="tag">Vite</span>
+        <div class="card-reveal">
+          <div class="card-reveal-inner">
+            <p class="card-desc">월간 러닝 기록 앱. 날짜별 km를 입력하고 목표 달성률과 월 경과율을 한눈에 확인.</p>
+            <div class="tags">
+              <span class="tag">러닝</span>
+              <span class="tag">React</span>
+              <span class="tag">Vite</span>
+            </div>
+          </div>
         </div>
       </a>
 
@@ -373,30 +346,28 @@
           <span class="card-name">fitmb</span>
           <span class="card-arrow">↗</span>
         </div>
-        <p class="card-desc">네이버 카페·블로그 업로드를 위한 사진 용량 조정 웹앱. 이미지를 20MB 이하로 자동 변환.</p>
-        <div class="tags">
-          <span class="tag">이미지</span>
-          <span class="tag">Vanilla JS</span>
-          <span class="tag">Vite</span>
-          <span class="tag">Canvas API</span>
+        <div class="card-reveal">
+          <div class="card-reveal-inner">
+            <p class="card-desc">네이버 카페·블로그 업로드를 위한 사진 용량 조정 웹앱. 이미지를 20MB 이하로 자동 변환.</p>
+            <div class="tags">
+              <span class="tag">이미지</span>
+              <span class="tag">Vanilla JS</span>
+              <span class="tag">Vite</span>
+              <span class="tag">Canvas API</span>
+            </div>
+          </div>
         </div>
       </a>
 
     </div>
-
-    <!-- Left bottom: color block -->
-    <div class="cell-accent-red"></div>
-
-  </main>
+  </div>
 
   <!-- FOOTER -->
-  <footer class="footer-grid">
-    <div class="footer-copy">© 2025 김신영</div>
-    <div class="footer-domain">yeonglab.com</div>
-    <div class="footer-block-blue"></div>
+  <footer>
+    <div class="foot-copy">© 2025 김신영</div>
+    <div class="foot-domain">yeonglab.com</div>
+    <div class="fb-blue"></div>
   </footer>
-
-</div>
 
 </body>
 </html>
