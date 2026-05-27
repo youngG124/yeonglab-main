@@ -4,45 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>yeonglab</title>
-<style>
+  <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
+    body {
+      background: #f5f3ee;
+      transition: background 0.3s;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ════════════════════════════════
+       V2 — Mondrian (기본)
+    ════════════════════════════════ */
+
+    #theme-v2 {
       --black:  #0d0d0d;
       --white:  #f5f3ee;
       --red:    #cc2d06;
       --blue:   #1a45c4;
       --yellow: #f0be18;
       --line:   4px solid transparent;
-    }
 
-    html {
-      background: var(--white);
-      display: flex;
-      justify-content: center;
-    }
-
-    body {
       background: var(--white);
       color: var(--black);
       font-family: Arial, Helvetica, sans-serif;
       width: 60%;
+      margin: 0 auto;
       min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.25s ease;
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    /* ── HEADER ── */
-    header {
+    #theme-v2 header {
       display: grid;
       grid-template-columns: 1fr 64px 64px;
       border-bottom: var(--line);
       height: 52px;
     }
 
-    .logo {
+    #theme-v2 .logo {
       display: flex;
       align-items: center;
       padding: 0 24px;
@@ -51,26 +53,28 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       border-right: var(--line);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
     }
+    #theme-v2 .logo:hover { opacity: 0.5; }
 
-    .hb-yellow { background: var(--yellow); border-right: var(--line); }
-    .hb-red    { background: var(--red); }
+    #theme-v2 .hb-yellow { background: var(--yellow); border-right: var(--line); }
+    #theme-v2 .hb-red    { background: var(--red); }
 
-    /* ── BODY ── */
-    .body-grid {
+    #theme-v2 .body-grid {
+      flex: 1;
       display: grid;
       grid-template-columns: 240px 1fr;
     }
 
-    /* ── LEFT PANEL ── */
-    .panel-left {
+    #theme-v2 .panel-left {
       border-right: var(--line);
       display: grid;
       grid-template-rows: 1fr auto;
     }
 
-    /* Identity cell */
-    .cell-identity {
+    #theme-v2 .cell-identity {
       background: var(--blue);
       color: var(--white);
       padding: 40px 28px;
@@ -78,32 +82,26 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      gap: 0;
       overflow: hidden;
       cursor: default;
     }
 
-    .cell-identity h1 {
+    #theme-v2 .cell-identity h1 {
       font-size: 40px;
       font-weight: 900;
       letter-spacing: -0.04em;
       line-height: 1;
     }
 
-    /* Contact — hidden by default */
-    .cell-identity .reveal {
+    #theme-v2 .cell-identity .reveal {
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.35s ease;
     }
-    .cell-identity .reveal-inner {
-      overflow: hidden;
-    }
-    .cell-identity:hover .reveal {
-      grid-template-rows: 1fr;
-    }
+    #theme-v2 .cell-identity .reveal-inner { overflow: hidden; }
+    #theme-v2 .cell-identity:hover .reveal { grid-template-rows: 1fr; }
 
-    .contact-link {
+    #theme-v2 .contact-link {
       display: flex;
       align-items: center;
       gap: 7px;
@@ -114,27 +112,23 @@
       padding-top: 20px;
       transition: color 0.2s;
     }
-    .contact-link:hover { color: var(--white); }
-
-    .contact-link svg {
+    #theme-v2 .contact-link:hover { color: var(--white); }
+    #theme-v2 .contact-link svg {
       width: 13px; height: 13px;
       stroke: currentColor; fill: none;
       stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
       flex-shrink: 0;
     }
 
-    /* Tagline — hidden by default */
-    .cell-tagline-wrap {
+    #theme-v2 .cell-tagline-wrap {
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.35s ease;
     }
-    .cell-tagline-inner { overflow: hidden; }
-    .cell-identity:hover .cell-tagline-wrap {
-      grid-template-rows: 1fr;
-    }
+    #theme-v2 .cell-tagline-inner { overflow: hidden; }
+    #theme-v2 .cell-identity:hover .cell-tagline-wrap { grid-template-rows: 1fr; }
 
-    .cell-tagline {
+    #theme-v2 .cell-tagline {
       font-size: 12px;
       font-weight: 400;
       line-height: 1.6;
@@ -142,89 +136,75 @@
       padding-top: 14px;
     }
 
-    /* Bottom accent */
-    .cell-accent { background: var(--red); }
+    #theme-v2 .cell-accent { background: var(--red); }
 
-    /* ── RIGHT PANEL: Cards ── */
-    .panel-right { display: flex; flex-direction: column; }
+    #theme-v2 .panel-right { display: flex; flex-direction: column; }
 
-    .card {
+    #theme-v2 .card {
       display: block;
       padding: 28px 32px 28px 28px;
       border-bottom: var(--line);
       flex: 1;
-      position: relative;
       overflow: hidden;
       cursor: pointer;
       transition: background 0.2s;
     }
+    #theme-v2 .card:last-child { border-bottom: none; }
 
-    .card:last-child { border-bottom: none; }
+    #theme-v2 .card:nth-child(1) { background: var(--red);    color: var(--white); }
+    #theme-v2 .card:nth-child(2) { background: var(--blue);   color: var(--white); }
+    #theme-v2 .card:nth-child(3) { background: var(--yellow); color: var(--black); }
 
-    /* Card background colors */
-    .card:nth-child(1) { background: var(--red);    color: var(--white); }
-    .card:nth-child(2) { background: var(--blue);   color: var(--white); }
-    .card:nth-child(3) { background: var(--yellow); color: var(--black); }
+    #theme-v2 .card:nth-child(1):hover { background: #b52705; }
+    #theme-v2 .card:nth-child(2):hover { background: #1538aa; }
+    #theme-v2 .card:nth-child(3):hover { background: #d9aa10; }
 
-    .card:nth-child(1):hover { background: #b52705; }
-    .card:nth-child(2):hover { background: #1538aa; }
-    .card:nth-child(3):hover { background: #d9aa10; }
+    #theme-v2 .card:nth-child(1) .card-desc,
+    #theme-v2 .card:nth-child(2) .card-desc { color: rgba(245,243,238,0.7); }
+    #theme-v2 .card:nth-child(3) .card-desc { color: rgba(13,13,13,0.65); }
 
-    /* Desc color per card */
-    .card:nth-child(1) .card-desc,
-    .card:nth-child(2) .card-desc { color: rgba(245,243,238,0.7); }
-    .card:nth-child(3) .card-desc { color: rgba(13,13,13,0.65); }
+    #theme-v2 .card:nth-child(1) .tag,
+    #theme-v2 .card:nth-child(2) .tag { background: rgba(245,243,238,0.18); color: var(--white); }
+    #theme-v2 .card:nth-child(3) .tag { background: rgba(13,13,13,0.12);    color: var(--black); }
 
-    /* Tags per card */
-    .card:nth-child(1) .tag,
-    .card:nth-child(2) .tag { background: rgba(245,243,238,0.18); color: var(--white); }
-    .card:nth-child(3) .tag { background: rgba(13,13,13,0.12);    color: var(--black); }
-
-    /* Card top — always visible */
-    .card-top {
+    #theme-v2 .card-top {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
     }
 
-    .card-name {
+    #theme-v2 .card-name {
       font-size: clamp(36px, 6vw, 56px);
       font-weight: 500;
       letter-spacing: -0.04em;
       line-height: 1;
     }
 
-    .card-arrow {
+    #theme-v2 .card-arrow {
       font-size: 18px;
       font-weight: 900;
       transition: transform 0.2s;
     }
-    .card:hover .card-arrow { transform: translate(4px, -4px); }
+    #theme-v2 .card:hover .card-arrow { transform: translate(4px, -4px); }
 
-    /* Reveal block — hidden by default */
-    .card-reveal {
+    #theme-v2 .card-reveal {
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.35s ease;
     }
-    .card-reveal-inner { overflow: hidden; }
-    .card:hover .card-reveal { grid-template-rows: 1fr; }
+    #theme-v2 .card-reveal-inner { overflow: hidden; }
+    #theme-v2 .card:hover .card-reveal { grid-template-rows: 1fr; }
 
-    .card-desc {
+    #theme-v2 .card-desc {
       font-size: 12.5px;
-      color: #555;
       line-height: 1.65;
       padding-top: 14px;
       padding-bottom: 14px;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
+    #theme-v2 .tags { display: flex; flex-wrap: wrap; gap: 5px; }
 
-    .tag {
+    #theme-v2 .tag {
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -234,16 +214,14 @@
       color: var(--white);
     }
 
-
-    /* ── FOOTER ── */
-    footer {
+    #theme-v2 footer {
       display: grid;
       grid-template-columns: 240px 1fr 64px;
       border-top: var(--line);
       height: 48px;
     }
 
-    .foot-copy {
+    #theme-v2 .foot-copy {
       display: flex;
       align-items: center;
       padding: 0 24px;
@@ -254,7 +232,7 @@
       border-right: var(--line);
     }
 
-    .foot-domain {
+    #theme-v2 .foot-domain {
       display: flex;
       align-items: center;
       padding: 0 24px;
@@ -263,100 +241,330 @@
       border-right: var(--line);
     }
 
-    .fb-blue { background: var(--blue); }
+    #theme-v2 .fb-blue { background: var(--blue); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 580px) {
-      .body-grid { grid-template-columns: 1fr; }
-      .panel-left { border-right: none; grid-template-rows: auto 60px; }
-      .cell-identity { min-height: 180px; justify-content: flex-end; }
-      .panel-right .card:last-child { border-bottom: var(--line); }
-
-      footer { grid-template-columns: 1fr 52px; }
-      .foot-domain { display: none; }
+      #theme-v2 { width: 100%; }
+      #theme-v2 .body-grid { grid-template-columns: 1fr; }
+      #theme-v2 .panel-left { border-right: none; grid-template-rows: auto; }
+      #theme-v2 .cell-accent { display: none; }
+      #theme-v2 .cell-identity { min-height: 240px; }
+      #theme-v2 footer { grid-template-columns: 1fr 52px; }
+      #theme-v2 .foot-domain { display: none; }
     }
+
+    @media (hover: none) {
+      #theme-v2 .card-reveal { grid-template-rows: 1fr; }
+      #theme-v2 .cell-identity .cell-tagline-wrap { grid-template-rows: 1fr; }
+      #theme-v2 .cell-identity .reveal { grid-template-rows: 1fr; }
+    }
+
+    /* ════════════════════════════════
+       V1 — Original dark
+    ════════════════════════════════ */
+
+    #theme-v1 {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --border-hover: #333333;
+      --text: #e2e2e2;
+      --muted: #5a5a5a;
+      --accent: #4a78f5;
+      --accent-dim: rgba(74, 120, 245, 0.12);
+
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.25s ease;
+    }
+
+    #theme-v1 .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    #theme-v1 header { padding: 32px 0 0; }
+
+    #theme-v1 .logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
+    }
+    #theme-v1 .logo:hover { opacity: 0.6; }
+
+    #theme-v1 .hero {
+      padding: 72px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #theme-v1 .hero h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    #theme-v1 .hero .tagline {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    #theme-v1 .hero .contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    #theme-v1 .hero .contact:hover { color: var(--text); }
+    #theme-v1 .hero .contact svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    #theme-v1 .projects { padding: 56px 0; flex: 1; }
+
+    #theme-v1 .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    #theme-v1 .grid { display: grid; gap: 12px; }
+
+    #theme-v1 .card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 24px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    #theme-v1 .card:hover {
+      border-color: var(--border-hover);
+      background: #151515;
+    }
+
+    #theme-v1 .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    #theme-v1 .card-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    #theme-v1 .card-arrow {
+      color: var(--muted);
+      font-size: 16px;
+      transition: transform 0.2s, color 0.2s;
+    }
+    #theme-v1 .card:hover .card-arrow { transform: translate(3px, -3px); color: var(--accent); }
+
+    #theme-v1 .card-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    #theme-v1 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    #theme-v1 .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    #theme-v1 footer {
+      padding: 24px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+    #theme-v1 footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #theme-v1 footer span { font-size: 12px; color: var(--muted); }
+
+    @media (max-width: 480px) {
+      #theme-v1 .hero { padding: 56px 0 48px; }
+      #theme-v1 .hero h1 { font-size: 24px; }
+      #theme-v1 .projects { padding: 40px 0; }
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">yeonglab</div>
-    <div class="hb-yellow"></div>
-    <div class="hb-red"></div>
-  </header>
+  <!-- V2: Mondrian (기본) -->
+  <div id="theme-v2">
+    <header>
+      <div class="logo" title="click to switch version">yeonglab</div>
+      <div class="hb-yellow"></div>
+      <div class="hb-red"></div>
+    </header>
 
-  <!-- BODY -->
-  <div class="body-grid">
-
-    <!-- LEFT -->
-    <div class="panel-left">
-      <div class="cell-identity">
-        <h1>김신영</h1>
-
-        <div class="cell-tagline-wrap">
-          <div class="cell-tagline-inner">
-            <p class="cell-tagline">작은 불편함을 해결하는<br>웹 도구들</p>
+    <div class="body-grid">
+      <div class="panel-left">
+        <div class="cell-identity">
+          <h1>김신영</h1>
+          <div class="cell-tagline-wrap">
+            <div class="cell-tagline-inner">
+              <p class="cell-tagline">작은 불편함을 해결하는<br>웹 도구를 만들었습니다.</p>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="reveal-inner">
+              <a class="contact-link" href="mailto:newyoung124@naver.com">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><polyline points="2,4 12,13 22,4"/></svg>
+                newyoung124@naver.com
+              </a>
+            </div>
           </div>
         </div>
-
-        <div class="reveal">
-          <div class="reveal-inner">
-            <a class="contact-link" href="mailto:newyoung124@naver.com">
-              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><polyline points="2,4 12,13 22,4"/></svg>
-              newyoung124@naver.com
-            </a>
-          </div>
-        </div>
+        <div class="cell-accent"></div>
       </div>
 
-      <div class="cell-accent"></div>
+      <div class="panel-right">
+        <a class="card" href="/phtop/">
+          <div class="card-top">
+            <span class="card-name">PHTOP</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <div class="card-reveal">
+            <div class="card-reveal-inner">
+              <p class="card-desc">iOS에서 Windows로 사진을 빠르게 전송하는 웹앱. 업로드 후 1분 TTL, 다운로드 즉시 삭제.</p>
+              <div class="tags">
+                <span class="tag">파일 전송</span>
+                <span class="tag">iOS</span>
+                <span class="tag">Node.js</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="/monmile/">
+          <div class="card-top">
+            <span class="card-name">MONMILE</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <div class="card-reveal">
+            <div class="card-reveal-inner">
+              <p class="card-desc">월간 러닝 기록 앱. 날짜별 km를 입력하고 목표 달성률과 월 경과율을 한눈에 확인.</p>
+              <div class="tags">
+                <span class="tag">러닝</span>
+                <span class="tag">React</span>
+                <span class="tag">Vite</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="/fitmb/">
+          <div class="card-top">
+            <span class="card-name">FITMB</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <div class="card-reveal">
+            <div class="card-reveal-inner">
+              <p class="card-desc">네이버 카페·블로그 업로드를 위한 사진 용량 조정 웹앱. 이미지를 20MB 이하로 자동 변환.</p>
+              <div class="tags">
+                <span class="tag">이미지</span>
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Vite</span>
+                <span class="tag">Canvas API</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
 
-    <!-- RIGHT -->
-    <div class="panel-right">
+    <footer>
+      <div class="foot-copy">© 2025 김신영</div>
+      <div class="foot-domain">yeonglab.com</div>
+      <div class="fb-blue"></div>
+    </footer>
+  </div>
 
-      <a class="card" href="/phtop/">
-        <div class="card-top">
-          <span class="card-name">PHTOP</span>
-          <span class="card-arrow">↗</span>
-        </div>
-        <div class="card-reveal">
-          <div class="card-reveal-inner">
+  <!-- V1: Original dark -->
+  <div id="theme-v1" style="display:none">
+    <div class="container">
+      <header>
+        <span class="logo" title="click to switch version">yeonglab</span>
+      </header>
+      <section class="hero">
+        <h1>김신영</h1>
+        <p class="tagline">작은 불편함을 해결하는 웹 도구를 만들었습니다.</p>
+        <a class="contact" href="mailto:newyoung124@naver.com">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          newyoung124@naver.com
+        </a>
+      </section>
+      <section class="projects">
+        <p class="section-label">Projects</p>
+        <div class="grid">
+          <a class="card" href="/phtop/">
+            <div class="card-top">
+              <span class="card-name">phtop</span>
+              <span class="card-arrow">↗</span>
+            </div>
             <p class="card-desc">iOS에서 Windows로 사진을 빠르게 전송하는 웹앱. 업로드 후 1분 TTL, 다운로드 즉시 삭제.</p>
             <div class="tags">
               <span class="tag">파일 전송</span>
               <span class="tag">iOS</span>
               <span class="tag">Node.js</span>
             </div>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="/monmile/">
-        <div class="card-top">
-          <span class="card-name">MONMILE</span>
-          <span class="card-arrow">↗</span>
-        </div>
-        <div class="card-reveal">
-          <div class="card-reveal-inner">
+          </a>
+          <a class="card" href="/monmile/">
+            <div class="card-top">
+              <span class="card-name">monmile</span>
+              <span class="card-arrow">↗</span>
+            </div>
             <p class="card-desc">월간 러닝 기록 앱. 날짜별 km를 입력하고 목표 달성률과 월 경과율을 한눈에 확인.</p>
             <div class="tags">
               <span class="tag">러닝</span>
               <span class="tag">React</span>
               <span class="tag">Vite</span>
             </div>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="/fitmb/">
-        <div class="card-top">
-          <span class="card-name">FITMB</span>
-          <span class="card-arrow">↗</span>
-        </div>
-        <div class="card-reveal">
-          <div class="card-reveal-inner">
+          </a>
+          <a class="card" href="/fitmb/">
+            <div class="card-top">
+              <span class="card-name">fitmb</span>
+              <span class="card-arrow">↗</span>
+            </div>
             <p class="card-desc">네이버 카페·블로그 업로드를 위한 사진 용량 조정 웹앱. 이미지를 20MB 이하로 자동 변환.</p>
             <div class="tags">
               <span class="tag">이미지</span>
@@ -364,19 +572,43 @@
               <span class="tag">Vite</span>
               <span class="tag">Canvas API</span>
             </div>
-          </div>
+          </a>
         </div>
-      </a>
-
+      </section>
     </div>
+    <footer>
+      <div class="container">
+        <span>© 2025 김신영</span>
+        <span>yeonglab.com</span>
+      </div>
+    </footer>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="foot-copy">© 2025 김신영</div>
-    <div class="foot-domain">yeonglab.com</div>
-    <div class="fb-blue"></div>
-  </footer>
+  <script>
+    const v1 = document.getElementById('theme-v1');
+    const v2 = document.getElementById('theme-v2');
+
+    function switchTheme() {
+      const isV2 = v2.style.display !== 'none';
+      const from = isV2 ? v2 : v1;
+      const to   = isV2 ? v1 : v2;
+
+      from.style.opacity = '0';
+      setTimeout(() => {
+        from.style.display = 'none';
+        to.style.display   = '';
+        to.style.opacity   = '0';
+        document.body.style.background = isV2 ? '#0a0a0a' : '#f5f3ee';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { to.style.opacity = '1'; });
+        });
+      }, 220);
+    }
+
+    document.querySelectorAll('.logo').forEach(el => {
+      el.addEventListener('click', switchTheme);
+    });
+  </script>
 
 </body>
 </html>
